@@ -1,0 +1,28 @@
+-- Roles e Inserción de Categorías
+INSERT INTO Rol (nombre) VALUES ('Cliente'), ('Administrador');
+INSERT INTO Categoria (nombre) VALUES ('Entrantes'), ('Platos Principales'), ('Postres'), ('Bebidas');
+
+-- Usuarios (Admin ID: 1, Cliente ID: 2)
+INSERT INTO Usuario (nombre, contrasena, email, rol_id) VALUES
+('Ignacio Admin', 'pass123', 'admin@restaurante.com', 2),
+('Juan Cliente', 'pass456', 'juan@gmail.com', 1);
+
+-- MenuItems (18 items vinculados al Creador ID: 1)
+INSERT INTO MenuItems (nombre, precio, categoria_id, imagen, creador_id) VALUES
+-- Entrantes (Cat ID: 1)
+('Bruschettas', 280, 1, 'b.jpg', 1), ('Provoleta', 450, 1, 'p.jpg', 1), 
+('Bastones Pollo', 350, 1, 'bp.jpg', 1), ('Hummus', 310, 1, 'h.jpg', 1), ('Ceviche', 520, 1, 'c.jpg', 1),
+-- Platos Principales (Cat ID: 2)
+('Entraña', 890, 2, 'e.jpg', 1), ('Ravioles', 580, 2, 'r.jpg', 1), 
+('Hamburguesa', 620, 2, 'h.jpg', 1), ('Ensalada Caesar', 450, 2, 'ec.jpg', 1), ('Wok Vegetales', 490, 2, 'w.jpg', 1),
+-- Postres (Cat ID: 3)
+('Tiramisú', 380, 3, 't.jpg', 1), ('Mousse', 320, 3, 'm.jpg', 1), 
+('Helado', 250, 3, 'h.jpg', 1), ('Panqueque', 290, 3, 'pq.jpg', 1),
+-- Bebidas (Cat ID: 4)
+('Agua', 150, 4, 'a.jpg', 1), ('Cerveza', 320, 4, 'cz.jpg', 1), 
+('Jugo Naranja', 280, 4, 'jn.jpg', 1), ('Vino Copa', 410, 4, 'v.jpg', 1);
+
+-- Simulación de Carrito y Favoritos
+INSERT INTO Carrito (dueno_id, total, fecha_compra, comprado) VALUES (2, 1510, CURDATE(), FALSE);
+INSERT INTO CarritoItems (carrito_id, menu_id, cantidad) VALUES (1, 8, 2), (1, 16, 1);
+INSERT INTO Favoritos (usuario_id, menu_id) VALUES (2, 6), (2, 11);

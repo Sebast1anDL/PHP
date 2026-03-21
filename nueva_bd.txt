@@ -1,0 +1,76 @@
+CREATE DATABASE restaurante;
+USE restaurante;
+
+-- =========================
+-- Tabla Rol
+-- =========================
+CREATE TABLE Rol (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(20) NOT NULL UNIQUE
+);
+
+-- =========================
+-- Tabla Categoria
+-- =========================
+CREATE TABLE Categoria (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- =========================
+-- Tabla Usuario
+-- =========================
+CREATE TABLE Usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    rol_id INT,
+    FOREIGN KEY (rol_id) REFERENCES Rol(id)
+);
+
+-- =========================
+-- Tabla MenuItems
+-- =========================
+CREATE TABLE MenuItems (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    precio INT NOT NULL,
+    categoria_id INT,
+    imagen VARCHAR(255),
+    creador_id INT,
+    FOREIGN KEY (categoria_id) REFERENCES Categoria(id),
+    FOREIGN KEY (creador_id) REFERENCES Usuario(id)
+);
+
+-- =========================
+-- Tabla Carrito
+-- =========================
+CREATE TABLE Carrito (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    dueno_id INT,
+    total INT DEFAULT 0,
+    fecha_compra DATE,
+    comprado BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (dueno_id) REFERENCES Usuario(id)
+);
+
+-- =========================
+-- Relaciones N:M
+-- =========================
+CREATE TABLE Favoritos (
+    usuario_id INT,
+    menu_id INT,
+    PRIMARY KEY (usuario_id, menu_id),
+    FOREIGN KEY (usuario_id) REFERENCES Usuario(id) ON DELETE CASCADE,
+    FOREIGN KEY (menu_id) REFERENCES MenuItems(id) ON DELETE CASCADE
+);
+
+CREATE TABLE CarritoItems (
+    carrito_id INT,
+    menu_id INT,
+    cantidad INT DEFAULT 1,
+    PRIMARY KEY (carrito_id, menu_id),
+    FOREIGN KEY (carrito_id) REFERENCES Carrito(id) ON DELETE CASCADE,
+    FOREIGN KEY (menu_id) REFERENCES MenuItems(id) ON DELETE CASCADE
+);

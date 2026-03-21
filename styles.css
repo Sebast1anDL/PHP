@@ -1,4 +1,7 @@
-/* Reset y Variables */
+/* ===============================================
+   ESTILOS PRINCIPALES - EL BUEN COMER
+   =============================================== */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,155 +9,374 @@
 }
 
 :root {
-    --primary-color: #8B4513;
-    --secondary-color: #D2691E;
-    --text-color: #333;
-    --light-bg: #f9f7f4;
-    --white: #ffffff;
-    --border-color: #e0e0e0;
+    --primary-color: #2C3E50;
+    --secondary-color: #E74C3C;
+    --accent-color: #F39C12;
+    --text-dark: #2C3E50;
+    --text-light: #7F8C8D;
+    --bg-light: #ECF0F1;
+    --white: #FFFFFF;
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ===============================================
+   TIPOGRAFÍA Y BASE
+   =============================================== */
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--light-bg);
+    color: var(--text-dark);
+    background-color: var(--bg-light);
 }
 
-/* Contenedor */
+/* ===============================================
+   CONTENEDOR
+   =============================================== */
+
 .container {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Header */
+/* ===============================================
+   HEADER
+   =============================================== */
+
 .header {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
     color: var(--white);
-    padding: 60px 20px;
+    padding: 40px 20px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 500px;
+    height: 500px;
+    background: rgba(243, 156, 18, 0.1);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -30%;
+    width: 400px;
+    height: 400px;
+    background: rgba(231, 76, 60, 0.08);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.header .container {
+    position: relative;
+    z-index: 2;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.logo-section {
+    flex-shrink: 0;
+}
+
+.logo {
+    max-width: 120px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    animation: logoFadeIn 0.8s ease;
+}
+
+.logo:hover {
+    transform: scale(1.1) rotate(-2deg);
+    box-shadow: 0 12px 30px rgba(243, 156, 18, 0.4);
+}
+
+.title-section {
+    text-align: center;
 }
 
 .header h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
+    font-size: 4em;
+    margin-bottom: 15px;
     font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.8s ease;
 }
 
-.tagline {
-    font-size: 1.2em;
-    font-style: italic;
+.header .tagline {
+    font-size: 1.4em;
     opacity: 0.95;
+    font-style: italic;
+    color: #F39C12;
+    animation: slideUp 0.8s ease;
 }
 
-/* Main Content */
+/* ===============================================
+   MAIN CONTENT
+   =============================================== */
+
 main {
-    padding: 40px 0;
+    padding: 60px 0;
     min-height: calc(100vh - 300px);
 }
 
 .menu h2 {
     text-align: center;
-    font-size: 2.5em;
-    margin-bottom: 40px;
+    font-size: 3em;
+    margin-bottom: 60px;
     color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+    width: 100%;
 }
 
-/* Menu Categories */
+.menu h2::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* ===============================================
+   CATEGORÍAS DEL MENÚ
+   =============================================== */
+
 .menu-category {
     margin-bottom: 50px;
     background-color: var(--white);
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-category:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
 }
 
 .menu-category h3 {
-    color: var(--secondary-color);
-    font-size: 1.8em;
-    margin-bottom: 25px;
-    border-bottom: 3px solid var(--primary-color);
-    padding-bottom: 10px;
+    color: var(--white);
+    font-size: 2em;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%);
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-/* Menu Items */
+/* ===============================================
+   ITEMS DEL MENÚ
+   =============================================== */
+
 .menu-items {
     display: grid;
-    gap: 20px;
+    gap: 25px;
 }
 
 .menu-item {
-    padding: 15px 0;
-    border-bottom: 1px solid var(--border-color);
+    padding: 20px;
+    border-left: 5px solid var(--accent-color);
+    border-radius: 8px;
+    background: #FAFAFA;
+    transition: all 0.3s ease;
 }
 
-.menu-item:last-child {
-    border-bottom: none;
+.menu-item:hover {
+    background: #F5F5F5;
+    transform: translateX(10px);
+    box-shadow: 0 3px 10px rgba(243, 156, 18, 0.2);
 }
 
 .item-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .menu-item h4 {
-    font-size: 1.2em;
-    color: var(--text-color);
+    font-size: 1.4em;
+    color: var(--primary-color);
     font-weight: 600;
+    flex: 1;
+    min-width: 200px;
 }
 
 .price {
     color: var(--secondary-color);
     font-weight: 700;
-    font-size: 1.1em;
+    font-size: 1.3em;
+    background: var(--bg-light);
+    padding: 8px 15px;
+    border-radius: 25px;
+    white-space: nowrap;
 }
 
 .description {
-    color: #666;
+    color: var(--text-light);
     font-style: italic;
     font-size: 0.95em;
     margin-left: 0;
+    line-height: 1.5;
 }
 
-/* Footer */
+/* ===============================================
+   FOOTER
+   =============================================== */
+
 .footer {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
     color: var(--white);
     text-align: center;
-    padding: 30px 20px;
-    margin-top: 40px;
+    padding: 40px 20px;
+    margin-top: 60px;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .footer p {
-    margin: 8px 0;
-}
-
-.contact {
-    margin-top: 15px;
-    font-size: 0.95em;
+    margin: 12px 0;
     opacity: 0.9;
+    font-size: 0.95em;
 }
 
-/* Responsive Design */
+.footer .contact {
+    margin-top: 20px;
+    font-size: 1em;
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+/* ===============================================
+   ANIMACIONES
+   =============================================== */
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes logoFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ===============================================
+   RESPONSIVE DESIGN
+   =============================================== */
+
+@media (max-width: 992px) {
+    .header h1 {
+        font-size: 3em;
+    }
+
+    .logo {
+        max-width: 100px;
+    }
+
+    .header-content {
+        gap: 20px;
+    }
+
+    .menu h2 {
+        font-size: 2.2em;
+    }
+
+    .menu-category h3 {
+        font-size: 1.6em;
+    }
+}
+
 @media (max-width: 768px) {
+    .header {
+        padding: 30px 20px;
+    }
+
     .header h1 {
         font-size: 2em;
     }
 
-    .tagline {
-        font-size: 1em;
+    .header .tagline {
+        font-size: 1.1em;
+    }
+
+    .logo {
+        max-width: 90px;
+    }
+
+    .header-content {
+        gap: 15px;
     }
 
     .menu h2 {
         font-size: 1.8em;
+        margin-bottom: 40px;
+    }
+
+    .menu-category {
+        padding: 25px;
     }
 
     .menu-category h3 {
         font-size: 1.4em;
+        margin-bottom: 20px;
+    }
+
+    .menu-item {
+        padding: 15px;
     }
 
     .menu-item h4 {
@@ -164,10 +386,85 @@ main {
     .item-header {
         flex-direction: column;
         align-items: flex-start;
+        gap: 8px;
     }
 
     .price {
         align-self: flex-start;
-        margin-top: 5px;
+        font-size: 1.1em;
     }
+
+    .menu-items {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 30px 15px;
+    }
+
+    .header h1 {
+        font-size: 1.6em;
+    }
+
+    .header .tagline {
+        font-size: 1em;
+    }
+
+    .logo {
+        max-width: 80px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .menu h2 {
+        font-size: 1.5em;
+    }
+
+    .menu-category h3 {
+        font-size: 1.2em;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .menu-item h4 {
+        font-size: 1em;
+    }
+
+    .price {
+        font-size: 1em;
+    }
+}
+
+/* ===============================================
+   SCROLL BAR (Firefox)
+   =============================================== */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) var(--bg-light);
+}
+
+/* Scroll Bar (Webkit - Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
 }

@@ -9,8 +9,13 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="container">
-            <h1>🍽️ El Buen Comer</h1>
-            <p class="tagline">Comida comible y fresca</p>
+        <div class="container header-content">
+            <div class="logo-section">
+                <img src="styles/Logo1.png" alt="El Buen Comer Logo" class="logo">
+            </div>
+            <div class="title-section">
+                <h1>El Buen Comer</h1>
+                <p class="tagline">Comida deliciosa y fresca</p>
+            </div>
         </div>
     </header>

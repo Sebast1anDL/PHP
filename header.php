@@ -16,7 +16,7 @@
             <h1 class="brand-name">El Buen Comer</h1>
             <div class="header-actions-small">
                 <a href="#" class="btn btn-outline">Registrarse</a>
-                <a href="#" class="btn btn-primary">Iniciar sesión</a>
+                <a href="administrador/login.php" class="btn btn-primary">Iniciar sesión</a>
             </div>
         </div>
     </header>

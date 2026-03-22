@@ -8,14 +8,15 @@
 </head>
 <body>
     <!-- Header -->
-    <header class="header">
-        <div class="container header-content">
-            <div class="logo-section">
-                <img src="styles/Logo1.png" alt="El Buen Comer Logo" class="logo">
+    <header class="header header-small">
+        <div class="container header-nav-small">
+            <div class="brand-small">
+                <a href="index.php"><img src="images/Logo_final.png" alt="El Buen Comer Logo" class="logo-small"></a>
             </div>
-            <div class="title-section">
-                <h1>El Buen Comer</h1>
-                <p class="tagline">Comida deliciosa y fresca</p>
+            <h1 class="brand-name">El Buen Comer</h1>
+            <div class="header-actions-small">
+                <a href="#" class="btn btn-outline">Registrarse</a>
+                <a href="#" class="btn btn-primary">Iniciar sesión</a>
             </div>
         </div>
     </header>

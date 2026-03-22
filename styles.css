@@ -328,6 +328,53 @@ main {
     border-radius: 2px;
 }
 
+.menu-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+.sort-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 12px 18px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sort-container label {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.sort-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.sort-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+}
+
+.sort-select:hover {
+    border-color: var(--accent-color);
+}
+
 /* ===============================================
    CATEGORÍAS DEL MENÚ
    =============================================== */
@@ -530,6 +577,24 @@ main {
         padding: 8px 16px;
     }
 
+    .menu-controls {
+        justify-content: center;
+        padding: 0 10px;
+    }
+
+    .sort-container {
+        padding: 10px 14px;
+    }
+
+    .sort-container label {
+        font-size: 0.9rem;
+    }
+
+    .sort-select {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+
     .header .tagline {
         font-size: 1.1em;
     }
@@ -612,6 +677,24 @@ main {
 
     .container {
         padding: 0 15px;
+    }
+
+    .menu-controls {
+        padding: 0;
+    }
+
+    .sort-container {
+        padding: 8px 12px;
+        gap: 8px;
+    }
+
+    .sort-container label {
+        font-size: 0.85rem;
+    }
+
+    .sort-select {
+        font-size: 0.8rem;
+        padding: 5px 8px;
     }
 
     .menu-item h4 {

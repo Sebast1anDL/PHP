@@ -8,6 +8,10 @@ session_start();
     <section class="form-auth">
         <h2>Iniciar sesión</h2>
 
+        <?php if (isset($_GET['error'])): ?>
+            <p style="color: #e74c3c; font-weight: 700; text-align: center;">Usuario o contraseña incorrecta</p>
+        <?php endif; ?>
+
         <form action="/PHP/administrador/auth.php" method="POST">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required>

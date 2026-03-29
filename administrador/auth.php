@@ -35,8 +35,10 @@ if ($result->num_rows === 1) {
             header("Location: ../index.php");
         }
     } else {
-        echo "Contraseña incorrecta";
+        header("Location: login.php?error=1");
+        exit;
     }
 } else {
-    echo "Usuario no encontrado";
+    header("Location: login.php?error=1");
+    exit;
 }

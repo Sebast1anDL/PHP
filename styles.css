@@ -20,7 +20,7 @@
     --surface:     #FAFAFA;
     --bg:          #ECF0F1;
     --white:       #FFFFFF;
-    --shadow:      0 4px 16px rgba(0,0,0,0.09);
+    --shadow:      0 4px 16px rgba(122, 35, 35, 0.09);
     --shadow-lg:   0 8px 28px rgba(0,0,0,0.14);
     --radius:      10px;
 }
@@ -421,6 +421,69 @@ main {
     font-style: italic;
     color: var(--text-muted);
     line-height: 1.5;
+}
+
+/* -----------------------------------------------
+   FORMULARIO DE AUTENTICACIÓN (LOGIN / REGISTER)
+----------------------------------------------- */
+
+.form-auth {
+    max-width: 410px;
+    background: var(--white);
+    margin: 40px auto;
+    padding: 30px 28px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(0,0,0,0.06);
+}
+
+.form-auth h2 {
+    margin-bottom: 18px;
+    font-size: 1.8rem;
+    color: var(--primary);
+    text-align: center;
+}
+
+.form-auth label {
+    display: block;
+    margin-top: 14px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.form-auth input {
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.97rem;
+    color: var(--text);
+    background: var(--surface);
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.form-auth input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(243,156,18,0.14);
+    outline: none;
+}
+
+.form-auth .btn {
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.form-auth p {
+    margin-top: 16px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.form-auth p a {
+    color: var(--primary);
+    font-weight: 700;
 }
 
 /* -----------------------------------------------

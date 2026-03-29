@@ -40,12 +40,12 @@ if (session_status() === PHP_SESSION_NONE) {
         <?php if (isset($_SESSION['user_id'])): ?>
 
             <!-- Common -->
-            <a href="../index.php">Inicio</a>
+            <a href="/PHP/index.php">Inicio</a>
 
             <!-- Admin only -->
             <?php if ($_SESSION['rol'] === 'Administrador'): ?>
-                <a href="admin_index.php">CRUD Menu</a>
-                <a href="admin_users.php">Usuarios</a>
+                <a href="/PHP/administrador/admin_index.php">CRUD Menu</a>
+                <a href="/PHP/administrador/admin_users.php">Usuarios</a>
             <?php endif; ?>
 
         <?php endif; ?>
@@ -54,9 +54,9 @@ if (session_status() === PHP_SESSION_NONE) {
     <div class="user-info">
         <?php if (isset($_SESSION['user_id'])): ?>
             <?= $_SESSION['nombre'] ?> (<?= $_SESSION['rol'] ?>)
-            | <a href="logout.php" style="color: #ff8080;">Logout</a>
+            | <a href="/PHP/administrador/logout.php" style="color: #ff8080;">Logout</a>
         <?php else: ?>
-            <a href="login.php" style="color: lightgreen;">Login</a>
+            <a href="/PHP/administrador/login.php" style="color: lightgreen;">Login</a>
         <?php endif; ?>
     </div>
 </header>

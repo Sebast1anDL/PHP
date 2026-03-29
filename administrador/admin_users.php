@@ -9,20 +9,37 @@ if ($_SESSION['rol'] !== 'Administrador') {
 }
 
 // CREATE USER
+$mensaje = '';
 if (isset($_POST['create'])) {
 
-    $nombre = $_POST['nombre'];
-    $email = $_POST['email'];
-    $password = $_POST['contrasena'];
+    $nombre = trim($_POST['nombre']);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['contrasena']);
     $rol_id = $_POST['rol_id'];
 
-    $stmt = $conn->prepare("
-        INSERT INTO Usuario (nombre, email, contrasena, rol_id)
-        VALUES (?, ?, ?, ?)
-    ");
+    // Validación: email único
+    $check = $conn->prepare('SELECT id FROM Usuario WHERE email = ?');
+    $check->bind_param('s', $email);
+    $check->execute();
+    $check->store_result();
 
-    $stmt->bind_param("sssi", $nombre, $email, $password, $rol_id);
-    $stmt->execute();
+    if ($check->num_rows > 0) {
+        $mensaje = 'El email ya está registrado. Usa otro email.';
+    } else {
+        $stmt = $conn->prepare(
+            "INSERT INTO Usuario (nombre, email, contrasena, rol_id) VALUES (?, ?, ?, ?)"
+        );
+
+        $stmt->bind_param('sssi', $nombre, $email, $password, $rol_id);
+        if ($stmt->execute()) {
+            $mensaje = 'Usuario creado con éxito.';
+        } else {
+            $mensaje = 'Error al crear usuario. Intenta nuevamente.';
+        }
+        $stmt->close();
+    }
+
+    $check->close();
 }
 
 // FETCH USERS
@@ -34,6 +51,10 @@ JOIN Rol ON Usuario.rol_id = Rol.id
 ?>
 
 <h2>👤 Gestión de Usuarios</h2>
+
+<?php if (!empty($mensaje)): ?>
+    <p style="color: #e74c3c; font-weight: 600;"><?= htmlspecialchars($mensaje) ?></p>
+<?php endif; ?>
 
 <!-- CREATE USER -->
 <form method="POST">

@@ -7,6 +7,7 @@ INSERT INTO Usuario (nombre, contrasena, email, rol_id) VALUES
 ('Ignacio Admin', 'pass123', 'admin@restaurante.com', 2),
 ('Juan Cliente', 'pass456', 'juan@gmail.com', 1);
 
+
 -- MenuItems (18 items vinculados al Creador ID: 1)
 INSERT INTO MenuItems (nombre, precio, categoria_id, imagen, creador_id) VALUES
 -- Entrantes (Cat ID: 1)

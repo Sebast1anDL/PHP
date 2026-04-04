@@ -34,9 +34,34 @@
                     
                     if ($result_items->num_rows > 0) {
                         while($item = $result_items->fetch_assoc()) {
+                            $is_fav = false;
+                            if (isset($_SESSION['user_id'])) {
+                                $sql_check = "SELECT 1 FROM Favoritos WHERE usuario_id = ? AND menu_id = ?";
+                                $stmt_check = $conn->prepare($sql_check);
+                                $stmt_check->bind_param("ii", $_SESSION['user_id'], $item['id']);
+                                $stmt_check->execute();
+                                $result_check = $stmt_check->get_result();
+                                if ($result_check->num_rows > 0) {
+                                    $is_fav = true;
+                                }
+                                $stmt_check->close();
+                            }
                             echo '<div class="menu-item">';
                             echo '<div class="item-header">';
+                            echo '<div class="item-title">';
                             echo '<h4>' . htmlspecialchars($item['nombre']) . '</h4>';
+                            if (isset($_SESSION['user_id'])) {
+                                echo '<span onclick="toggleFav(this, ' . $item['id'] . ')" class="favorite-toggle" title="Agregar/Quitar de favoritos">';
+                                echo '<svg width="24" height="24" viewBox="0 0 24 24" class="heart-icon-small">';
+                                if ($is_fav) {
+                                    echo '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="var(--danger)"/>';
+                                } else {
+                                    echo '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="var(--danger)" stroke-width="2"/>';
+                                }
+                                echo '</svg>';
+                                echo '</span>';
+                            }
+                            echo '</div>';
                             echo '<span class="price">$' . $item['precio'] . '</span>';
                             echo '</div>';
                             echo '</div>';
@@ -95,6 +120,26 @@
         document.getElementById('sortSelect').addEventListener('change', (e) => {
             sortMenuItems(e.target.value);
         });
+
+        function toggleFav(el, menu_id) {
+            fetch('toggle_favorite.php?menu_id=' + menu_id, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const path = el.querySelector('path');
+                if (data.is_fav) {
+                    path.setAttribute('fill', 'var(--danger)');
+                    path.setAttribute('stroke', 'none');
+                } else {
+                    path.setAttribute('fill', 'none');
+                    path.setAttribute('stroke', 'var(--danger)');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
     </script>
 
 <?php include 'footer.php'; ?>

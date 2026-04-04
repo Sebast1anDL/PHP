@@ -166,6 +166,53 @@ body {
     margin-left: auto;
 }
 
+.favorites-link {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: inline-block;
+}
+
+.heart-icon {
+    width: 2rem;
+    height: 2rem;
+    transition: transform 0.2s;
+}
+
+.heart-icon-small {
+    width: 0.75rem;
+    height: 0.75rem;
+    transition: transform 0.2s;
+}
+
+.favorites-link:hover .heart-icon,
+.favorite-toggle:hover .heart-icon-small {
+    transform: scale(1.1);
+}
+
+.favorites-link:hover {
+    color: var(--danger);
+}
+
+.favorite-toggle {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: var(--accent);
+    text-decoration: none;
+    outline: none;
+    transition: transform 0.2s;
+}
+
+.favorite-toggle:active {
+    transform: scale(0.9);
+}
+
+.favorite-toggle svg {
+     stroke: orange;
+}
+
 /* Hero (home) */
 .hero-text {
     max-width: 680px;
@@ -389,31 +436,54 @@ main {
     transform: scale(1.1);
 }
 
+/* Contenedor principal del item */
 .item-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* nombre a la izquierda, precio a la derecha */
     align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 10px;
 }
 
-.menu-item h4 {
-    flex: 1;
-    min-width: 180px;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text);
+/* Contenedor del nombre + corazón */
+.item-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-direction: row; /* 👈 CLAVE: evita que se vaya abajo */
 }
 
-.price {
+/* Quitar márgenes del título */
+.item-title h4 {
+    margin: 0;
+}
+
+/* Botón del corazón */
+.favorite-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+/* Tamaño del icono */
+.heart-icon-small {
+    width: 22px;
+    height: 22px;
+}
+
+.favorite-toggle {
+    color: var(--text-muted);
     font-size: 1.2rem;
-    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.favorite-toggle:hover {
     color: var(--danger);
-    background: var(--bg);
-    padding: 6px 14px;
-    border-radius: 22px;
-    white-space: nowrap;
+}
+
+.menu-item:hover .favorite-toggle {
+    color: var(--white);
 }
 
 .description {

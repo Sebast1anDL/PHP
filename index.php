@@ -60,6 +60,12 @@
                                 }
                                 echo '</svg>';
                                 echo '</span>';
+                                echo '<button onclick="addToCart(' . $item['id'] . ', this)" class="add-to-cart-btn" title="Agregar al carrito">';
+                                echo '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">';
+                                echo '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>';
+                                echo '<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>';
+                                echo '</svg>';
+                                echo '</button>';
                             }
                             echo '</div>';
                             echo '<span class="price">$' . $item['precio'] . '</span>';
@@ -120,6 +126,28 @@
         document.getElementById('sortSelect').addEventListener('change', (e) => {
             sortMenuItems(e.target.value);
         });
+
+        function addToCart(menuId, btn) {
+            fetch('/PHP/cart_action.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'action=add&menu_id=' + menuId
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    const badge = document.querySelector('.cart-badge');
+                    if (badge) {
+                        badge.textContent = data.cart_count;
+                        badge.style.display = 'flex';
+                    }
+                    btn.style.transform = 'scale(1.4)';
+                    btn.style.color = 'var(--accent)';
+                    setTimeout(() => { btn.style.transform = ''; btn.style.color = ''; }, 350);
+                }
+            })
+            .catch(err => console.error('Error:', err));
+        }
 
         function toggleFav(el, menu_id) {
             fetch('toggle_favorite.php?menu_id=' + menu_id, {

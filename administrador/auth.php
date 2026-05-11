@@ -28,6 +28,17 @@ if ($result->num_rows === 1) {
         $_SESSION['nombre'] = $user['nombre'];
         $_SESSION['rol'] = $user['rol_nombre'];
 
+        // Sync cart count into session
+        $stmt_cart = $conn->prepare("
+            SELECT COALESCE(SUM(ci.cantidad), 0) AS cnt
+            FROM Carrito c JOIN CarritoItems ci ON c.id = ci.carrito_id
+            WHERE c.dueno_id = ? AND c.comprado = FALSE
+        ");
+        $stmt_cart->bind_param("i", $user['id']);
+        $stmt_cart->execute();
+        $_SESSION['cart_count'] = (int)$stmt_cart->get_result()->fetch_assoc()['cnt'];
+        $stmt_cart->close();
+
         // Redirect by role
         if ($user['rol_nombre'] === 'Administrador') {
             header("Location: admin_index.php");

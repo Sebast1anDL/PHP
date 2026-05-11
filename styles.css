@@ -637,3 +637,243 @@ main {
     .sort-container label { font-size: 0.82rem; }
     .sort-select { font-size: 0.8rem; }
 }
+
+/* -----------------------------------------------
+   PRECIO (menu item)
+----------------------------------------------- */
+
+.price {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(243,156,18,0.12);
+    padding: 4px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+/* -----------------------------------------------
+   CARRITO — HEADER ICON + BADGE
+----------------------------------------------- */
+
+.cart-link {
+    position: relative;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+.cart-link:hover { color: var(--danger); }
+.cart-link:hover .cart-icon { transform: scale(1.1); }
+
+.cart-icon {
+    width: 2rem;
+    height: 2rem;
+    transition: transform 0.2s;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background: var(--danger);
+    color: var(--white);
+    font-size: 0.62rem;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    pointer-events: none;
+}
+
+/* -----------------------------------------------
+   CARRITO — BOTÓN AGREGAR (index)
+----------------------------------------------- */
+
+.add-to-cart-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s, color 0.2s;
+}
+.add-to-cart-btn:hover { color: var(--accent); transform: scale(1.15); }
+.menu-item:hover .add-to-cart-btn { color: rgba(255,255,255,0.85); }
+.menu-item:hover .add-to-cart-btn:hover { color: var(--white); transform: scale(1.2); }
+
+/* -----------------------------------------------
+   CARRITO — PÁGINA cart.php
+----------------------------------------------- */
+
+.cart-table {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.cart-header-row {
+    display: grid;
+    grid-template-columns: 1fr 130px 140px 110px 44px;
+    gap: 12px;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%);
+    color: var(--white);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cart-row {
+    display: grid;
+    grid-template-columns: 1fr 130px 140px 110px 44px;
+    gap: 12px;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: background 0.2s;
+}
+.cart-row:last-child { border-bottom: none; }
+.cart-row:hover { background: var(--surface); }
+
+.cart-item-name  { font-weight: 600; color: var(--text); }
+.cart-item-price { color: var(--text-muted); font-size: 0.97rem; }
+.cart-item-subtotal {
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.cart-item-qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+    padding: 0;
+}
+.qty-btn:hover { background: var(--accent); color: var(--white); }
+
+.qty-value {
+    font-weight: 700;
+    min-width: 22px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.cart-remove-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.95rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart-remove-btn:hover { color: var(--danger); background: rgba(231,76,60,0.1); }
+
+.cart-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 0 8px;
+    gap: 16px;
+}
+
+.cart-total {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--text);
+}
+.cart-total span { color: var(--accent); }
+
+.btn-checkout { font-size: 1rem; padding: 13px 36px; }
+
+/* Empty state */
+.cart-empty {
+    text-align: center;
+    padding: 64px 24px;
+    color: var(--text-muted);
+}
+.cart-empty p { font-size: 1.1rem; margin-bottom: 22px; }
+
+/* Checkout success */
+.checkout-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    animation: slideDown 0.5s ease;
+}
+.checkout-success h3 { font-size: 1.9rem; color: var(--text); }
+.checkout-success p  { font-size: 1rem; color: var(--text-muted); }
+
+/* Toast */
+.cart-toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--primary-mid);
+    color: var(--white);
+    padding: 14px 22px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 9999;
+    pointer-events: none;
+}
+.cart-toast.show { opacity: 1; transform: translateY(0); }
+.cart-toast-error { background: var(--danger); }
+
+@keyframes slideOut {
+    to { opacity: 0; transform: translateX(40px); }
+}
+
+/* Responsive cart */
+@media (max-width: 768px) {
+    .cart-header-row { display: none; }
+    .cart-row {
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto auto;
+        gap: 8px;
+    }
+    .cart-item-name    { grid-column: 1 / -1; font-size: 1rem; }
+    .cart-item-price   { font-size: 0.88rem; }
+    .cart-item-subtotal{ grid-column: 1; }
+    .cart-remove-btn   { grid-column: 2; grid-row: 2; justify-self: end; }
+    .cart-footer       { flex-direction: column; align-items: stretch; text-align: center; }
+    .btn-checkout      { width: 100%; text-align: center; }
+}

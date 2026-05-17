@@ -130,18 +130,44 @@ switch ($action) {
         if (!$row) { echo json_encode(['success' => false, 'error' => 'Carrito vacío']); exit; }
         $cart_id = $row['id'];
 
-        $stmt = $conn->prepare("SELECT COUNT(*) AS cnt FROM CarritoItems WHERE carrito_id = ?");
+        // Obtener ítems para el email (antes de marcar como comprado)
+        $stmt = $conn->prepare("
+            SELECT m.nombre, m.precio, ci.cantidad
+            FROM CarritoItems ci JOIN MenuItems m ON ci.menu_id = m.id
+            WHERE ci.carrito_id = ?
+            ORDER BY m.nombre
+        ");
         $stmt->bind_param("i", $cart_id);
         $stmt->execute();
-        $cnt = (int)$stmt->get_result()->fetch_assoc()['cnt'];
+        $order_items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
-        if ($cnt === 0) { echo json_encode(['success' => false, 'error' => 'Carrito vacío']); exit; }
 
+        if (empty($order_items)) { echo json_encode(['success' => false, 'error' => 'Carrito vacío']); exit; }
+
+        $order_total = array_sum(array_map(fn($i) => $i['precio'] * $i['cantidad'], $order_items));
+
+        // Obtener datos del usuario para el email
+        $stmt = $conn->prepare("SELECT nombre, email FROM Usuario WHERE id = ?");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $user_data = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+
+        // Marcar carrito como comprado
+        $today = date('Y-m-d');
         $stmt = $conn->prepare("UPDATE Carrito SET comprado = TRUE, fecha_compra = CURDATE() WHERE id = ?");
         $stmt->bind_param("i", $cart_id);
         $stmt->execute();
         $stmt->close();
+
         $_SESSION['cart_count'] = 0;
+
+        // Enviar email de confirmación (best-effort: no interrumpe si falla)
+        if ($user_data && !empty($user_data['email'])) {
+            require_once __DIR__ . '/mailer.php';
+            sendOrderEmail($user_data['email'], $user_data['nombre'], $order_items, $order_total, $today);
+        }
+
         echo json_encode(['success' => true, 'cart_count' => 0]);
         break;
 

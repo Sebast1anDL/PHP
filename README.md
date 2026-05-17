@@ -238,7 +238,3 @@ Todas las respuestas son JSON. El badge del carrito en el header se actualiza en
 - **SQL:** la búsqueda en `admin_index.php` usa interpolación directa — reemplazar por prepared statement
 
 ---
-
-## Autor
-
-**Ignacio González** — [@NachoGonzalez2001](https://github.com/NachoGonzalez2001)

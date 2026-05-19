@@ -74,3 +74,27 @@ CREATE TABLE CarritoItems (
     FOREIGN KEY (carrito_id) REFERENCES Carrito(id) ON DELETE CASCADE,
     FOREIGN KEY (menu_id) REFERENCES MenuItems(id) ON DELETE CASCADE
 );
+
+
+-- =========================
+-- Tablas Historial
+-- =========================
+
+CREATE TABLE HistorialPedidos (
+    id            INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id    INT  NOT NULL,
+    fecha_pedido  DATE NOT NULL,
+    total         INT  NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES Usuario(id) ON DELETE CASCADE
+);
+
+CREATE TABLE HistorialItems (
+    id               INT AUTO_INCREMENT PRIMARY KEY,
+    pedido_id        INT          NOT NULL,
+    menu_id          INT          DEFAULT NULL,
+    nombre_item      VARCHAR(100) NOT NULL,
+    precio_unitario  INT          NOT NULL,
+    cantidad         INT          NOT NULL,
+    FOREIGN KEY (pedido_id) REFERENCES HistorialPedidos(id) ON DELETE CASCADE,
+    FOREIGN KEY (menu_id)   REFERENCES MenuItems(id) ON DELETE SET NULL
+);

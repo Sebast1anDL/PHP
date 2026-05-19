@@ -130,9 +130,9 @@ switch ($action) {
         if (!$row) { echo json_encode(['success' => false, 'error' => 'Carrito vacío']); exit; }
         $cart_id = $row['id'];
 
-        // Obtener ítems para el email (antes de marcar como comprado)
+        // Obtener ítems para el email y el historial (antes de marcar como comprado)
         $stmt = $conn->prepare("
-            SELECT m.nombre, m.precio, ci.cantidad
+            SELECT ci.menu_id, m.nombre, m.precio, ci.cantidad
             FROM CarritoItems ci JOIN MenuItems m ON ci.menu_id = m.id
             WHERE ci.carrito_id = ?
             ORDER BY m.nombre
@@ -158,6 +158,20 @@ switch ($action) {
         $stmt = $conn->prepare("UPDATE Carrito SET comprado = TRUE, fecha_compra = CURDATE() WHERE id = ?");
         $stmt->bind_param("i", $cart_id);
         $stmt->execute();
+        $stmt->close();
+
+        // Guardar en historial (snapshot de nombres y precios)
+        $stmt = $conn->prepare("INSERT INTO HistorialPedidos (usuario_id, fecha_pedido, total) VALUES (?, ?, ?)");
+        $stmt->bind_param("isi", $user_id, $today, $order_total);
+        $stmt->execute();
+        $pedido_id = $conn->insert_id;
+        $stmt->close();
+
+        $stmt = $conn->prepare("INSERT INTO HistorialItems (pedido_id, menu_id, nombre_item, precio_unitario, cantidad) VALUES (?, ?, ?, ?, ?)");
+        foreach ($order_items as $item) {
+            $stmt->bind_param("iisii", $pedido_id, $item['menu_id'], $item['nombre'], $item['precio'], $item['cantidad']);
+            $stmt->execute();
+        }
         $stmt->close();
 
         $_SESSION['cart_count'] = 0;
